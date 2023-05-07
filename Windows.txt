@@ -1,0 +1,759 @@
+1.Write a program to insert an element into a linear array. 
+
+#include<iostream>
+using namespace std;
+int main()
+{
+    int LA[100]={1,2,3,4,5,6};
+    int n=6,k=3,item=10;
+    int i=0, j=n;
+
+    cout<<"The array element are "<<endl;
+    for(i=0;i<n;i++)
+    {
+        cout<<"LA["<<i<<"]= "<<LA[i]<<endl;
+    }
+
+    while(j>=k)
+    {
+        LA[j+1]=LA[j];
+        j=j-1;
+    }
+
+    cout<<"The array element after insortion"<<endl;
+    LA[k]=item;
+    n=n+1;
+    for(i=0;i<n;i++)
+    {
+        cout<<"LA["<<i<<"]= "<<LA[i]<<endl;
+    }
+}
+
+2.Write a program to delete an element from a linear array
+
+#include<iostream>
+using namespace std;
+int main()
+{
+    int LA[100]={1,2,3,4,5,6};
+    int k=2,n=6;
+    int i,j;
+    cout<<"The orginal array elements "<<endl;
+    for(i=0;i<n;i++)
+    {
+        cout<<"LA["<<i<<"]= "<<LA[i]<<endl;
+    }
+    cout<<"The array elements after deletation"<<endl;
+    for(j=k;j<n-1;j++)
+    {
+        LA[j]=LA[j+1];
+    }
+    n=n-1;
+     for(i=0;i<n;i++)
+    {
+        cout<<"LA["<<i<<"]= "<<LA[i]<<endl;
+    }
+}
+
+3.bubble sort
+#include<iostream>
+using namespace std;
+int main()
+{
+    int LA[5]={5,3,6,2,7};
+    int n=5;
+    int i,j;
+
+    for(i=0;i<(n-1);i++)
+    {
+        j=0;
+        while(j<(n-1-i))
+        {
+            if(LA[j]>LA[j+1])
+            {
+                int temp=LA[j];
+                LA[j]=LA[j+1];
+                LA[j+1]=temp;
+            }
+        j=j+1;
+        }
+    }
+
+    cout<<"The ascending array element are "<<endl;
+
+    for(i=0;i<n;i++)
+    {
+        cout<<LA[i]<<" ";
+    }
+
+}
+4.marge sort
+
+#include <iostream>
+
+using namespace std;
+
+/* Function to merge the subarrays of a[] */
+void merge(int a[], int beg, int mid, int end)
+{
+    int i, j, k;
+    int n1 = mid - beg + 1;
+    int n2 = end - mid;
+
+    int LeftArray[n1], RightArray[n2]; //temporary arrays
+
+    /* copy data to temp arrays */
+    for (int i = 0; i < n1; i++)
+    LeftArray[i] = a[beg + i];
+    for (int j = 0; j < n2; j++)
+    RightArray[j] = a[mid + 1 + j];
+
+    i = 0; /* initial index of first sub-array */
+    j = 0; /* initial index of second sub-array */
+    k = beg;  /* initial index of merged sub-array */
+
+    while (i < n1 && j < n2)
+    {
+        if(LeftArray[i] <= RightArray[j])
+        {
+            a[k] = LeftArray[i];
+            i++;
+        }
+        else
+        {
+            a[k] = RightArray[j];
+            j++;
+        }
+        k++;
+    }
+    while (i<n1)
+    {
+        a[k] = LeftArray[i];
+        i++;
+        k++;
+    }
+
+    while (j<n2)
+    {
+        a[k] = RightArray[j];
+        j++;
+        k++;
+    }
+}
+
+void mergeSort(int a[], int beg, int end)
+{
+    if (beg < end)
+    {
+        int mid = (beg + end) / 2;
+        mergeSort(a, beg, mid);
+        mergeSort(a, mid + 1, end);
+        merge(a, beg, mid, end);
+    }
+}
+
+/* Function to print the array */
+void printArray(int a[], int n)
+{
+    int i;
+    for (i = 0; i < n; i++)
+        cout<<a[i]<<" ";
+}
+
+int main()
+{
+    int a[] = { 11, 30, 24, 7, 31, 16, 39, 41 };
+    int n = sizeof(a) / sizeof(a[0]);
+    cout<<"Before sorting array elements are - \n";
+    printArray(a, n);
+    mergeSort(a, 0, n - 1);
+    cout<<"\nAfter sorting array elements are - \n";
+    printArray(a, n);
+    return 0;
+}
+
+5.Write a program to insert a node into a linked list.
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+def linked_list_traversal(head):
+    ptr = head
+    while ptr is not None:
+        print(f"Element: {ptr.data}")
+        ptr = ptr.next
+
+# Case 1
+def insert_at_first(head, data):
+    ptr = Node(data)
+    ptr.next = head
+    return ptr
+
+# Case 2
+def insert_at_index(head, data, index):
+    ptr = Node(data)
+    p = head
+    i = 0
+    while i != index - 1:
+        p = p.next
+        i += 1
+    ptr.next = p.next
+    p.next = ptr
+    return head
+
+# Case 3
+def insert_at_end(head, data):
+    ptr = Node(data)
+    p = head
+    while p.next is not None:
+        p = p.next
+    p.next = ptr
+    ptr.next = None
+    return head
+
+# Case 4
+def insert_after_node(head, prev_node, data):
+    ptr = Node(data)
+    ptr.next = prev_node.next
+    prev_node.next = ptr
+    return head
+
+if __name__ == '__main__':
+    # Allocate memory for nodes in the linked list in Heap
+    head = Node(7)
+    second = Node(11)
+    third = Node(41)
+    fourth = Node(66)
+
+    # Link first and second nodes
+    head.next = second
+
+    # Link second and third nodes
+    second.next = third
+
+    # Link third and fourth nodes
+    third.next = fourth
+
+    # Terminate the list at the fourth node
+    fourth.next = None
+
+    print("Linked list before insertion")
+    linked_list_traversal(head)
+
+    # head = insert_at_first(head, 56)
+    # head = insert_at_index(head, 56, 1)
+    # head = insert_at_end(head, 56)
+    head = insert_after_node(head, third, 45)
+
+    print("\nLinked list after insertion")
+    linked_list_traversal(head)
+
+6.Write a program to delete a node form a linked list.
+#include <iostream>
+
+using namespace std;
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+
+void deleteNode(Node** head_ref, int key) {
+    
+    Node* temp = *head_ref;
+    Node* prev = NULL;
+
+  
+    if (temp != NULL && temp->data == key) {
+        *head_ref = temp->next; // Changed head
+        delete temp; // free old head
+        return;
+    }
+
+    // Search for the key to be deleted, keeping track of the previous node
+    while (temp != NULL && temp->data != key) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    // If key was not present in linked list
+    if (temp == NULL) {
+        cout << "Key not found in linked list." << endl;
+        return;
+    }
+
+    // Unlink the node from linked list
+    prev->next = temp->next;
+
+    // Free memory
+    delete temp;
+}
+
+// Function to insert a node at the beginning of a linked list
+void push(Node** head_ref, int new_data) {
+    Node* new_node = new Node;
+    new_node->data = new_data;
+    new_node->next = (*head_ref);
+    (*head_ref) = new_node;
+}
+
+// Function to print a linked list
+void printList(Node* node) {
+    while (node != NULL) {
+        cout << node->data << " ";
+        node = node->next;
+    }
+    cout << endl;
+}
+
+
+int main() {
+    Node* head = NULL;
+
+    push(&head, 7);
+    push(&head, 1);
+    push(&head, 3);
+    push(&head, 2);
+
+    cout << "Linked list before deletion: ";
+    printList(head);
+
+    deleteNode(&head, 1);
+
+    cout << "Linked list after deletion of 1: ";
+    printList(head);
+
+    deleteNode(&head, 3);
+
+    cout << "Linked list after deletion of 3: ";
+    printList(head);
+
+    deleteNode(&head, 7);
+
+    cout << "Linked list after deletion of 7: ";
+    printList(head);
+
+    return 0;
+}
+
+7.binary search
+
+#include<iostream>
+using namespace std;
+int main()
+{
+    int DATA[10]={1,2,3,4,5,6,7,8,9,10};
+    int N=10;
+    int LB=0,UB=N-1,LOC;
+    int BEG=LB,END=UB,MID=int((BEG+END)/2);
+     int ITEM=5;
+    while(BEG<=END && DATA[MID]!=ITEM)
+    {
+        if (ITEM<DATA[MID])
+            END=MID-1;
+        else
+            BEG=MID+1;
+
+
+        MID=int((BEG+END)/2);
+    }
+
+    if (DATA[MID]=ITEM)
+        LOC=MID;
+    else
+        LOC= 'null';
+    cout<<"The searching elements location is : "<<LOC<<endl;
+     cout<<"The searching elements is : "<<DATA[LOC]<<endl;
+}
+
+08.knapsak
+def knapsack_01(C, W, P, n):
+    # Initialize the table with zeros
+    table = [[0 for j in range(C+1)] for i in range(n+1)]
+
+    # Fill the table with dynamic programming
+    for i in range(1, n+1):
+        for j in range(1, C+1):
+            if W[i-1] > j:
+                table[i][j] = table[i-1][j]
+            else:
+                table[i][j] = max(table[i-1][j], P[i-1] + table[i-1][j-W[i-1]])
+
+    # Find the items included in the knapsack
+    included_items = []
+    j = C
+    for i in range(n, 0, -1):
+        if table[i][j] != table[i-1][j]:
+            included_items.append(i-1)
+            j -= W[i-1]
+
+    # Return the maximum profit and the included items
+    return table[n][C], included_items
+
+# Test the function with the given example
+C = 40
+W = [2, 11, 22, 15]
+P = [11, 21, 31, 33]
+n = 4
+max_profit, included_items = knapsack_01(C, W, P, n)
+print("Maximum profit:", max_profit)
+print("Included items:", included_items)
+
+09.job sequence
+
+def job_sequencing_with_deadlines(n, profits, deadlines):
+    # Sort jobs in descending order of their profits
+    jobs = sorted(zip(profits, deadlines), key=lambda x: x[0], reverse=True)
+
+    # Initialize the schedule with zeros
+    schedule = [0] * max(deadlines)
+    jobs=jobs
+
+    # Fill the schedule with the jobs
+    total_profit = 0
+    for job in jobs:
+        profit, deadline = job
+        # Find the available time slot for the job
+        for i in range(deadline - 1, -1, -1):
+            if schedule[i] == 0:
+                schedule[i] = profit
+                total_profit += profit
+                break
+
+    return total_profit, schedule
+
+
+# Test the function
+n = 7
+profits = [3, 5, 20, 18, 1, 6, 30]
+deadlines = [1, 3, 4, 3, 2, 1, 2]
+total_profit, schedule = job_sequencing_with_deadlines(n, profits, deadlines)
+print("Total profit:", total_profit)
+print("Schedule:", schedule)
+
+10.dynamic algorithm
+# Python program for Kruskal's algorithm to find
+# Minimum Spanning Tree of a given connected,
+# undirected and weighted graph
+
+
+# Class to represent a graph
+class Graph:
+
+    def __init__(self, vertices):
+        self.V = vertices
+        self.graph = []
+
+    # Function to add an edge to graph
+    def addEdge(self, u, v, w):
+        self.graph.append([u, v, w])
+
+    # A utility function to find set of an element i
+    # (truly uses path compression technique)
+    def find(self, parent, i):
+        if parent[i] != i:
+            # Reassignment of node's parent
+            # to root node as
+            # path compression requires
+            parent[i] = self.find(parent, parent[i])
+        return parent[i]
+
+    # A function that does union of two sets of x and y
+    # (uses union by rank)
+    def union(self, parent, rank, x, y):
+
+        # Attach smaller rank tree under root of
+        # high rank tree (Union by Rank)
+        if rank[x] < rank[y]:
+            parent[x] = y
+        elif rank[x] > rank[y]:
+            parent[y] = x
+
+        # If ranks are same, then make one as root
+        # and increment its rank by one
+        else:
+            parent[y] = x
+            rank[x] += 1
+
+    # The main function to construct MST
+    # using Kruskal's algorithm
+    def KruskalMST(self):
+
+        # This will store the resultant MST
+        result = []
+
+        # An index variable, used for sorted edges
+        i = 0
+
+        # An index variable, used for result[]
+        e = 0
+
+        # Sort all the edges in
+        # non-decreasing order of their
+        # weight
+        self.graph = sorted(self.graph,
+                            key=lambda item: item[2])
+
+        parent = []
+        rank = []
+
+        # Create V subsets with single elements
+        for node in range(self.V):
+            parent.append(node)
+            rank.append(0)
+
+        # Number of edges to be taken is less than to V-1
+        while e < self.V - 1:
+
+            # Pick the smallest edge and increment
+            # the index for next iteration
+            u, v, w = self.graph[i]
+            i = i + 1
+            x = self.find(parent, u)
+            y = self.find(parent, v)
+
+            # If including this edge doesn't
+            # cause cycle, then include it in result
+            # and increment the index of result
+            # for next edge
+            if x != y:
+                e = e + 1
+                result.append([u, v, w])
+                self.union(parent, rank, x, y)
+            # Else discard the edge
+
+        minimumCost = 0
+        print("Edges in the constructed MST")
+        for u, v, weight in result:
+            minimumCost += weight
+            print("%d -- %d == %d" % (u, v, weight))
+        print("Minimum Spanning Tree", minimumCost)
+
+
+# Driver code
+if __name__ == '__main__':
+    g = Graph(7)
+    g.addEdge(0, 5, 10)
+    g.addEdge(2, 3, 11)
+    g.addEdge(1, 6, 12)
+    g.addEdge(1, 2, 14)
+    g.addEdge(3, 6, 17)
+    g.addEdge(3, 4, 20)
+    g.addEdge(4, 6, 22)
+    g.addEdge(4, 5, 23)
+    g.addEdge(0, 1, 25)
+
+
+
+    # Function call
+    g.KruskalMST()
+
+# This code is contributed by Neelam Yadav
+# Improved by James Graça-Jones
+11.Write a program to find the shortest path from a directed weighted multistage graph using dynamic Algorithm
+
+# Python3 program to find shortest
+# distance in a multistage graph.
+
+# Returns shortest distance from
+# 0 to N-1.
+def shortestDist(graph):
+    global INF
+
+    # dist[i] is going to store shortest
+    # distance from node i to node N-1.
+    dist = [0] * N
+
+    dist[N - 1] = 0
+
+    # Calculating shortest path
+    # for rest of the nodes
+    for i in range(N - 2, -1, -1):
+
+        # Initialize distance from
+        # i to destination (N-1)
+        dist[i] = INF
+
+        # Check all nodes of next stages
+        # to find shortest distance from
+        # i to N-1.
+        for j in range(N):
+
+            # Reject if no edge exists
+            if graph[i][j] == INF:
+                continue
+
+            # We apply recursive equation to
+            # distance to target through j.
+            # and compare with minimum
+            # distance so far.
+            dist[i] = min(dist[i],
+                          graph[i][j] + dist[j])
+
+    return dist[0]
+
+
+# Driver code
+N = 9
+INF = 999999999999
+
+# Graph stored in the form of an
+# adjacency Matrix
+graph = [[INF, 3, 2,INF, INF, INF, INF, INF,INF],
+         [INF, INF, INF, 6, 2, 1,INF, INF,INF],
+         [INF, INF, INF,5 , INF, 3, INF, INF,INF],
+         [INF, INF, INF, INF, INF, INF, 4, INF,INF],
+         [INF, INF, INF, INF, INF, INF, 8, 2,INF],
+         [INF, INF, INF, INF, INF, INF, 5, 6,INF],
+         [INF, INF, INF, INF, INF, INF, INF, INF, 3],
+         [INF, INF, INF, INF, INF, INF, INF, INF, 1]]
+
+print("shortest distance is : ",shortestDist(graph))
+
+12.Write a program to find the all pair shortest path from a graph using Floyd Warshall’s Algorithm.
+
+# Floyd Warshall Algorithm in python
+
+
+# The number of vertices
+nV = 4
+
+INF = 999
+
+
+# Algorithm implementation
+def floyd_warshall(G):
+    distance = list(map(lambda i: list(map(lambda j: j, i)), G))
+
+    # Adding vertices individually
+    for k in range(nV):
+        for i in range(nV):
+            for j in range(nV):
+                distance[i][j] = min(distance[i][j], distance[i][k] + distance[k][j])
+    print_solution(distance)
+
+
+# Printing the solution
+print("The sortage path matrix is : ")
+def print_solution(distance):
+    for i in range(nV):
+        for j in range(nV):
+            if(distance[i][j] == INF):
+                print("INF", end=" ")
+            else:
+                print(distance[i][j], end="  ")
+        print(" ")
+
+
+G = [[0, 3, INF, 5],
+         [2, 0, INF, 4],
+         [INF, 1, 0, INF],
+         [INF, INF, 2, 0]]
+floyd_warshall(G)
+
+13.n queen
+
+class QueenChessBoard:
+    def __init__(self, size):
+        # board has dimensions size x size
+        self.size = size
+        # columns[r] is a number c if a queen is placed at row r and column c.
+        # columns[r] is out of range if no queen is place in row r.
+        # Thus after all queens are placed, they will be at positions
+        # (columns[0], 0), (columns[1], 1), ... (columns[size - 1], size - 1)
+        self.columns = []
+
+    def place_in_next_row(self, column):
+        self.columns.append(column)
+
+    def remove_in_current_row(self):
+        return self.columns.pop()
+
+    def is_this_column_safe_in_next_row(self, column):
+        # index of next row
+        row = len(self.columns)
+
+        # check column
+        for queen_column in self.columns:
+            if column == queen_column:
+                return False
+
+        # check diagonal
+        for queen_row, queen_column in enumerate(self.columns):
+            if queen_column - queen_row == column - row:
+                return False
+
+        # check other diagonal
+        for queen_row, queen_column in enumerate(self.columns):
+            if ((self.size - queen_column) - queen_row
+                    == (self.size - column) - row):
+                return False
+
+        return True
+
+    def display(self):
+        for row in range(self.size):
+            for column in range(self.size):
+                if column == self.columns[row]:
+                    print('Q', end=' ')
+                else:
+                    print('.', end=' ')
+            print()
+
+
+def solve_queen(size):
+    """Display a chessboard for each possible configuration of placing n queens
+    on an n x n chessboard and print the number of such configurations."""
+    board = QueenChessBoard(size)
+    number_of_solutions = 0
+
+    row = 0
+    column = 0
+    # iterate over rows of board
+    while True:
+        # place queen in next row
+        while column < size:
+            if board.is_this_column_safe_in_next_row(column):
+                board.place_in_next_row(column)
+                row += 1
+                column = 0
+                break
+            else:
+                column += 1
+
+        # if could not find column to place in or if board is full
+        if column == size or row == size:
+            # if board is full, we have a solution
+            if row == size:
+                board.display()
+                print()
+                number_of_solutions += 1
+
+                # small optimization:
+                # In a board that already has queens placed in all rows except
+                # the last, we know there can only be at most one position in
+                # the last row where a queen can be placed. In this case, there
+                # is a valid position in the last row. Thus we can backtrack two
+                # times to reach the second last row.
+                board.remove_in_current_row()
+                row -= 1
+
+            # now backtrack
+            try:
+                prev_column = board.remove_in_current_row()
+            except IndexError:
+                # all queens removed
+                # thus no more possible configurations
+                break
+            # try previous row again
+            row -= 1
+            # start checking at column = (1 + value of column in previous row)
+            column = 1 + prev_column
+
+    print('Number of solutions:', number_of_solutions)
+
+
+n = int(input('Enter n: '))
+solve_queen(n)
